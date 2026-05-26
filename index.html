@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>random e pseudo-random</title>
+	<meta name="chiara betti - alessio robert andronic"      content="chiara betti - alessio robert andronic">
+	<meta name="description" content="Descrizione">
+	<meta name="viewport"    content="width=device-width, initial-scale=1">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet"   href="./assets/css/main.css">
+	<style>
+		.interactive-box {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 18px;
+			padding: 1rem 1rem 0.9rem;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			margin-top: 1rem;
+			display: inline-block;
+			max-width: 100%;
+		}
+
+		.formula-line {
+			display: inline-flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			gap: 0.35rem;
+			font-family: 'Inter', sans-serif;
+			font-size: 1.45rem;
+			line-height: 1.2;
+			font-weight: 800;
+			color: #fff;
+		}
+
+		.formula-term {
+			position: relative;
+			display: inline-block;
+			padding: 0.05rem 0.15rem;
+			border-radius: 8px;
+			background: transparent;
+			border: none;
+			cursor: default;
+			transition: transform 0.15s ease, color 0.15s ease, background 0.15s ease;
+		}
+
+		.formula-term:hover {
+			transform: scale(1.12);
+			color: #fff;
+			background: rgba(255, 255, 255, 0.12);
+		}
+
+		.tooltip-text {
+			position: absolute;
+			bottom: calc(100% + 0.2rem);
+			left: 50%;
+			transform: translateX(-50%) translateY(4px);
+			min-width: 260px;
+			max-width: 300px;
+			padding: 0.85rem 1rem;
+			background: rgba(15, 23, 42, 0.96);
+			color: #f8fafc;
+			font-size: 0.95rem;
+			line-height: 1.4;
+			white-space: normal;
+			border-radius: 14px;
+			border: 1px solid rgba(148, 163, 184, 0.28);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.18s ease, transform 0.18s ease;
+			z-index: 10;
+		}
+
+		.formula-term:hover .tooltip-text {
+			opacity: 1;
+			transform: translateX(-50%) translateY(0);
+		}
+
+		@media (max-width: 768px) {
+			.formula-line { font-size: 1.1rem; gap: 0.4rem; }
+			.interactive-box { padding: 1rem; }
+			.tool-grid { grid-template-columns: 1fr; }
+		}
+
+		.tool-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1rem;
+			margin-top: 1rem;
+		}
+
+		.tool-card {
+			background: transparent;
+			border: none;
+			border-radius: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			gap: 0.45rem;
+		}
+
+		.tool-card h5 {
+			display: none;
+		}
+
+		.tool-card p {
+			margin: 0;
+			color: rgba(0, 0, 0, 0.82);
+			font-size: 0.95rem;
+			line-height: 1.5;
+		}
+
+		.tool-frame {
+			width: 100%;
+			height: 450px;
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			border-radius: 16px;
+			background: #000000;
+		}
+	</style>
+</head>
+<body>
+	<main class="contenitore">
+
+		<!-- --------------------------------------------------------------------- -->
+
+		<header>
+			<span></span>
+		<h1><br>Random <br><br></h1>
+		<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>1:</strong>  Concetto di casualità e imprevedibilità</h4>
+			<div class="contenuto-sezione">
+				<p>
+					<br>
+					<br>
+					In termini matematici, una sequenza casuale è tale quando <strong>ogni valore ha la 
+					stessa probabilità di essere scelto ed è statisticamente indipendente dagli altri</strong>.
+					<br>
+					<br> 
+					L’evoluzione di questo concetto mostra come l’uomo abbia progressivamente cercato 
+					di comprendere, riprodurre e utilizzare l’imprevedibilità del mondo.
+					<br>
+					<br> 
+					Il concetto di casualità e imprevedibilità affascina l’uomo fin dall’antichità, 
+					quando strumenti come dadi e sorteggi venivano utilizzati per prendere decisioni 
+					o interpretare la volontà divina.
+					<br>
+					<br> 
+					Negli anni ’40 la necessità di eseguire simulazioni complesse porta alla creazione 
+					di strumenti capaci di produrre rapidamente numeri <strong>apparentemente casuali</strong>.
+					<br>
+					<br>
+					Nel corso del tempo il processo è stato velocizzato permettendone l'utilizzo 
+					su larga scala, di fatto tali generatori sono principalmente utilizzati per:
+					<br>
+					<strong>-	Simulazioni</strong>.<br> 
+					<strong>-	Tecniche di campionamento statistico</strong>.<br> 
+					<strong>-	Ambito crittografico</strong>.<br> 
+					<strong>-	Intelligenza artificiale</strong>.<br>
+			</p>
+			<br>
+			<div class="tool-grid">
+				<div class="tool-card">
+					<iframe src="./tools/lancio-moneta.html" title="Lancio Moneta" class="tool-frame"></iframe>
+				</div>
+				<div class="tool-card">
+					<iframe src="./tools/slot-machine.html" title="Slot Machine Minimal" class="tool-frame"></iframe>
+				</div>
+			</div>
+		</div>
+		<br>
+	</section>
+		<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>2:</strong>  Funzioni pseudo-random</h4>
+			<div class="contenuto-sezione">
+				<p>
+					<br>
+					<br>
+					Le funzioni pseudo-random sono strumenti fondamentali nell’informatica e nel design 
+					computazionale:<br> 
+					consentono di creare sistemi complessi in grado di generare sequenze di numeri <strong>apparentemente casuali</strong> in modo 
+					controllato e riproducibile.
+					<br> 
+					<br>
+					Queste sequenze sono dette pseudo-casuali, in quanto generate da un algoritmo 
+					deterministico, ovvero una procedura che, <strong>ricevendo un input, restituisce sempre 
+					lo stesso output</strong>.
+					<br>
+					<br>
+					 Si parla dunque di pseudo-random proprio perché la casualità non è reale, 
+					ma simulata:<br> i numeri prodotti hanno proprietà statistiche simili a quelle di 
+					fenomeni casuali, ma sono in realtà <strong>determinati da regole matematiche precise</strong>.
+					<br>
+					<br> 
+					<strong>Tutto dipende dal seed</strong> (seme), cioè il valore iniziale da cui parte la generazione 
+					della sequenza.<br> Di conseguenza un seme mal scelto può causare sequenze prevedibili.<br> 
+					Nei generatori pseudo-casuali, <strong>lo stesso seed produce sempre la stessa sequenza</strong>.
+					<br>
+					<br> 
+					Si parla di <strong>periodicità</strong> in quanto gli algoritmi presentano uno stato interno finito, <br> 
+					dunque dopo un certo numero di interazioni la sequenza si ripete.<br> 
+					 
+
+				</p>
+			</div>
+		</section>
+
+		<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>3:</strong>  Le categorie</h4>
+			<div class="contenuto-sezione">
+				<br>
+				<br>
+				<p>
+					Le generatori casuali si distinguono in due famiglie principali, ciascuna con caratteristiche diverse in termini di velocità, riproducibilità e sicurezza.
+				</p>
+				<p>
+					<strong>TRNG (True-Random Number Generator)</strong><br>
+					Generano numeri casuali basandosi su <strong>fenomeni fisici</strong> imprevedibili, come rumore elettronico o variazioni termiche. Essendo <strong>aperiodici</strong>, sono molto più lenti ma molto più adatti alla crittografia.
+				</p>
+				<p>
+					Fasi: acquisizione del segnale → amplificazione e digitalizzazione → post-elaborazione.
+				</p>
+				<img src="./assets/img/cloudflare.png" style="width: 100%; max-width: 750px; margin: 1rem 0; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.18);">
+				<br>Nella sua sede di Londra, Cloudflare utilizza una parete di <strong>doppi pendoli caotici</strong>. 
+				Il loro movimento <br>
+				imprevedibile viene ripreso da telecamere e convertito in numeri casuali 
+				per alimentare i sistemi di crittografia<br>
+				che proteggono gran parte del traffico Internet globale.
+				<p><br><br><br>
+					<strong>PRNG (Pseudo-Random Number Generator)</strong><br>
+					Sono algoritmi deterministici: la stessa sequenza di input produce sempre lo stesso output. Sono veloci e replicabili, quindi ideali per simulazioni e giochi, ma meno adatti per applicazioni crittografiche.
+				</p>
+				<p>
+					<strong>I generatori lineari congruenziali (LCG)</strong><br>
+					Uno dei metodi più semplici, in cui <strong>ogni valore dipende dal precedente</strong>, rendendo la sequenza deterministica ma apparentemente imprevedibile. Possono però avere periodi brevi e mostrare pattern riconoscibili.
+				</p>
+				<p><br>
+					<strong>La formula:</strong><br>
+					
+				</p>
+			<div class="interactive-box">
+				<div class="formula-line">
+					<span class="formula-term">Xₙ₊₁
+						<span class="tooltip-text">Numero pseudo-casuale successivo nella sequenza.</span>
+					</span>
+					<span>=</span>
+					<span>(</span>
+					<span class="formula-term">a
+						<span class="tooltip-text">Moltiplicatore scelto per il generatore lineare congruenziale.</span>
+					</span>
+					<span>·</span>
+					<span class="formula-term">Xₙ
+						<span class="tooltip-text">Valore corrente o seme iniziale della sequenza.</span>
+					</span>
+					<span>+</span>
+					<span class="formula-term">c
+						<span class="tooltip-text">Incremento costante aggiunto ad ogni passo.</span>
+					</span>
+					<span>)</span>
+					<span class="formula-term">mod
+						<span class="tooltip-text">Operazione modulo che limita il range del risultato.</span>
+					</span>
+					<span class="formula-term">m
+						<span class="tooltip-text">Modulo, imposta il valore massimo della sequenza.</span>
+					
+					</span>
+				</div>
+			</div>
+		</div>
+	</section>
+<br><br>
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>4:</strong>  Le caratteristiche di un buon generatore</h4>
+			<div class="contenuto-sezione">
+				<p>
+				<br>
+				<br>
+					<strong>Velocità di calcolo:</strong><br>
+					Garantire rapidità senza compromettere la qualità statistica delle sequenze generate.
+				</p>
+				<p>
+					<strong>Capacità di memoria e gestione dei dati:</strong><br>
+					Consente di utilizzare più generatori contemporaneamente e di sviluppare algoritmi più complessi, stabili e affidabili.
+				</p>
+				<p>
+					<strong>Ripetibilità delle sequenze:</strong><br>
+					Con lo stesso seed iniziale il sistema deve riprodurre esattamente la stessa sequenza di numeri.
+				</p>
+				<p>
+					<strong>Uniformità statistica:</strong><br>
+					Ogni numero deve avere la stessa probabilità di comparire rispetto agli altri.
+				</p>
+				<p>
+					<strong>Imprevedibilità:</strong><br>
+					Non deve essere possibile prevedere con precisione i valori successivi.
+				</p>
+				<p>
+					<strong>Assenza di pattern e periodicità:</strong><br>
+					Non deve produrre schemi riconoscibili, quindi il generatore deve avere un periodo molto lungo.
+				</p>
+				<p>
+					<strong>Portabilità del codice:</strong><br>
+					Lo stesso algoritmo deve risultare replicabile e riproducibile su piattaforme diverse.
+				</p>
+			</div>
+		</section>
+
+		<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>5:</strong>  Combinazione di più generatori</h4>
+			<div class="contenuto-sezione">
+				<p>
+				<br>
+				<br>
+					Permette di migliorare la qualità statistica delle sequenze generate aumentando il periodo.
+				</p>
+				<br>
+				<p>
+					I due metodi più diffusi:
+				<p>
+					<strong>- Mescolamento di sequenze</strong><br>
+					Un generatore produce i numeri, mentre un secondo sceglie come combinarli, 
+					<br>ad esempio attraverso operazioni bitwise.
+				</p>
+				<p>
+					<strong>- Somma di sequenze</strong><br>
+					Più generatori lavorano parallelamente e i loro output vengono combinati tramite somme modulari.
+				</p>
+			</div>
+		</section>
+
+		<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>6:</strong>  Validità e test</h4>
+			<div class="contenuto-sezione">
+				<br>
+				<br>
+				Il <strong>NIST(National Institute of Standards and Technology)</strong> rilascia gli <strong>STS (Statistical Test Suite)</strong>, 
+				<br>ovvero una raccolta di test statistici che hanno l'obbiettivo di valutare se un algoritmo sia valido o meno,
+				<br> individuandone possibili ripetizioni o irregolarità nei risultati. 
+					<br>
+					<br>! IL NIST non definisce un algoritmo sicuro dopo il superamento dei test in quanto essi testano 
+					<br>la statistica di generazione dei numeri, 
+				<br>non riguarda la sicurezza crittografica. 
+					<br><br>
+					<br>
+				La procedura:
+				<div
+				<br> <br>1. Viene applicata una funzione alla sequenza di numeri e si ottiene un valore che indica quanto 
+				<br>il comportamento si discosta da quello atteso. 
+				<br><br>2. Da ciò ne deriva un indice, il 'P-value'
+				<br><br>P-value > 0.01 → il generatore è valido
+				<br>P-value < 0.01 → il generatore non è valido
+				<br><br><br>
+					Esistono due approcci per l'applicazione dei test:
+					<br><br>
+				- <strong>Test a singolo livello:</strong> il test viene applicato una sola volta su un grande campione di dati, 
+				<br>ma fornicsce un'unica misura globale (che non permette di individuare eventuali problemi specifici). 
+				<br><br>
+				- <strong>Test a più livelli:</strong> il test si ripete più volte su diversi campioni e si confronta la distribuzione
+				<br> dei risultati ottenuti con quella attesa.
+				</p>
+				<img src="./assets/img/close.png" style="width: 100%; max-width: 480px; margin: 1rem 0; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.18);">
+				
+				
+				<img src="./assets/img/serial.png" style="width: 100%; max-width: 480px; margin: 1rem 0; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.18);">
+				<br>
+				
+			</div>
+		</section>
+		<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione"><strong>7:</strong>  Approfondimento</h4>
+			<div class="contenuto-sezione">
+				<br>
+				<br>
+				<iframe 
+				src="./tools/approfondimento.html"
+				width="100%"
+				height="900"
+				style="border:none;"
+				></iframe>
+			<br>
+			<strong>Molnar e Manfred Mohr</strong>, sono tra i primi pionieri dell'arte digitale e algoritmica. 
+			<br>Entrambi lavoravano attraverso sistemi matematici, regole e variazioni controllate, trasformando<br> 
+			numeri e algoritmi in composizioni visive astratte. Nelle loro opere il caso non è mai puro caos, ma<br>
+			 un elemento governato da strutture logiche e combinatorie.</strong>
+			Questo sistema generativo è basato <br>
+			sul concetto di random e pseudo-random. L’utente inserisce un seed numerico,<br> 
+			che viene utilizzato dall’algoritmo per generare una composizione unica. 
+			<br>Ogni seed produce sempre la stessa immagine: questo significa che il random è controllato e riproducibile. <br>
+			Cambiando anche solo una cifra, il sistema genera un risultato completamente differente.
+			<br><br>Ogni numero corrisponde a specifiche proprietà visive: i colori sono associati ai valori numerici;
+			<br>- i numeri pari generano tonalità fredde;
+			<br>- i numeri dispari producono colori caldi;
+			<br>- la rotazione delle forme dipende dal valore del seed;
+			<br>- la quantità di elementi varia in base ai numeri inseriti;
+			<br>- grandezza, densità e posizione cambiano continuamente 
+			<br><br>Il sistema crea quindi un equilibrio tra ordine e casualità. Le regole matematiche restano sempre presenti, 
+			<br> ma il risultato visivo appare imprevedibile e organico. 
+<br><br><br>
+			
+<!-- --------------------------------------------------------------------- -->
+
+		<section class="filetto">
+			<h4 class="titolo-sezione">Sitografia</h4>
+			<div class="contenuto-sezione">
+				<ul>
+					<br>
+					<br>
+					<li>https://it.wikipedia.org/wiki/Generatore_lineare_congruenziale
+					<br>
+					<li>https://it.eitca.org/sicurezza-informatica/eitc-%C3%A8-ccf-i-fondamenti-della-crittografia-classica/c
+					<br>
+					<li>https://thesis.unipd.it/retrieve/e3c2b72c-f3c0-4c9a-bfc9-d34b783413bc/tesi_default.pdf
+					<br>
+					<li>https://pithese.github.io/RandomU/
+
+				</ul>
+
+			</div>
+		</section>
+	</main>
+</body>
+</html>

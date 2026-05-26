@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Generative Art</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    canvas { display: block; }
+
+    input {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 200px;
+      height: 42px;
+      border-radius: 10px;
+      border: 2px solid black;
+      background: white;
+      color: black;
+      padding-left: 12px;
+      font-size: 18px;
+      z-index: 10;
+      outline: none;
+    }
+
+    button {
+      position: absolute;
+      top: 20px;
+      height: 44px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 10;
+      border: 2px solid black;
+      background: white;
+      color: black;
+      transition: 0.2s;
+    }
+
+    button:hover { transform: scale(1.03); }
+
+    #generateBtn { left: 235px; width: 120px; }
+    #randomBtn { left: 370px; width: 160px; }
+  </style>
+</head>
+
+<body>
+
+<input type="text" id="seedInput" placeholder="Inserisci seed">
+<button id="generateBtn">Genera</button>
+<button id="randomBtn">Seed casuale</button>
+
+<script>
+
+let currentSeed = "2222";
+
+// GENERA
+document.getElementById('generateBtn').addEventListener('click', () => {
+  let value = document.getElementById('seedInput').value;
+
+  if(value.trim() === "") {
+    value = Math.floor(Math.random() * 999999).toString();
+  }
+
+  currentSeed = value;
+  redraw();
+});
+
+// RANDOM
+document.getElementById('randomBtn').addEventListener('click', () => {
+  currentSeed = Math.floor(Math.random() * 999999).toString();
+  document.getElementById('seedInput').value = currentSeed;
+  redraw();
+});
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  angleMode(DEGREES);
+  noLoop();
+
+  document.getElementById('seedInput').value = currentSeed;
+  redraw();
+}
+
+function draw() {
+  background(255);
+  generateArtwork(currentSeed);
+}
+
+// RANDOM RIPRODUCIBILE
+function seededRandom(seed) {
+  let x = Math.sin(seed * 9999) * 9999;
+  return x - Math.floor(x);
+}
+
+function generateArtwork(seed) {
+
+  let seedString = seed.toString();
+  let grid = max(seedString.length, 4);
+
+  let size = min(width, height) * 0.75;
+  let cell = size / grid;
+
+  let offsetX = width / 2 - size / 2;
+  let offsetY = height / 2 - size / 2;
+
+  noFill();
+
+  // PALETTE
+  let warm = [
+    [255, 90, 40],
+    [255, 140, 60],
+    [255, 60, 120]
+  ];
+
+  let cool = [
+    [60, 140, 255],
+    [80, 200, 255],
+    [120, 240, 255]
+  ];
+
+  for(let index = 0; index < seedString.length; index++) {
+
+    let digit = parseInt(seedString[index]);
+
+    let centerX = offsetX + (index % grid) * cell + cell / 2;
+    let centerY = offsetY + floor(index / grid) * cell + cell / 2;
+
+    // 🔥 DIFFERENZA MOLTO PIÙ FORTE
+    let intensity = pow(digit + 1, 3); // << CHIAVE
+
+    let rotationValue = digit * 55;
+
+    let amount = floor(map(intensity, 1, 1000, 2, 140)); // molto più estremo
+
+    let shapeSize = map(digit, 0, 9, 20, 280);
+    let lineWeight = map(digit, 0, 9, 1, 6);
+    let density = map(digit, 0, 9, 0.5, 7);
+
+    // 🔥 DISPARI = FORTISSIMO BIAS CALDO
+    let isOdd = digit % 2 === 1;
+
+    let colorPick;
+
+    if(isOdd) {
+      // sempre caldo con piccola variazione
+      colorPick = warm[floor(seededRandom(digit * 999) * warm.length)];
+    } else {
+      // pari → più freddi ma meno dominanti
+      colorPick = cool[floor(seededRandom(digit * 555) * cool.length)];
+    }
+
+    push();
+
+    translate(centerX, centerY);
+    rotate(rotationValue);
+
+    stroke(colorPick[0], colorPick[1], colorPick[2], 140);
+    strokeWeight(lineWeight);
+
+    for(let i = 0; i < amount; i++) {
+
+      let r = seededRandom(
+        digit * 1000 +
+        i * 77 +
+        seed.length * 91
+      );
+
+      rotate(r * density * digit);
+
+      let offset = r * shapeSize;
+
+      if(digit <= 3) {
+
+        rectMode(CENTER);
+        rect(offset, offset, shapeSize * r, shapeSize * r);
+
+      } else if(digit <= 6) {
+
+        ellipse(offset, offset, shapeSize * r);
+
+      } else {
+
+        line(-offset, -offset, offset, offset);
+        line(offset, -offset, -offset, offset);
+      }
+    }
+
+    pop();
+  }
+}
+
+function keyPressed() {
+  if(key === ' ') {
+    currentSeed = Math.floor(Math.random() * 999999).toString();
+    document.getElementById('seedInput').value = currentSeed;
+    redraw();
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw();
+}
+
+</script>
+
+</body>
+</html>

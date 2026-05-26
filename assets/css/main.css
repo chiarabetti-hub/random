@@ -1,0 +1,114 @@
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #1D1D1B;
+	color: #FFFFF7;
+	padding: 2em;
+	margin: 0;
+	font-family: "Syne", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	font-variation-settings: "slnt" 0;
+}
+
+p {
+	margin: 0 0 1em 0;
+	/* cornice testo: ridotta a destra per avvicinare il bordo destro */
+	max-width: 45em;
+}
+
+h1 {
+	margin: 0;
+	font-size: calc(3em + 5pt);
+	font-family: "Circular", sans-serif;
+}
+
+h4 {
+	margin: 0;
+}
+
+iframe {
+	margin: 0;
+	display: block;
+	border: none;
+	width: 100%;
+}
+
+header,
+section {
+	display: grid;
+	grid-template-columns: 1fr;
+	margin-bottom: 2em;
+	padding-top: 0.25em;
+}
+
+.filetto {
+	border-top: none;
+	padding-top: 2em;
+	position: relative;
+}
+
+.filetto::before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background-color: #E7E7DD;
+	border-radius: 999px;
+}
+
+.titolo-sezione {
+	margin-right: 1em;
+	font-family: "Circular", sans-serif;
+	font-size: 23pt;
+}
+
+.contenitore {
+	/* max-width: 54em; */
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+.contenuto-sezione {
+	/* sposta leggermente a destra la cornice del testo */
+	/* sposta la cornice a destra: triplo della misura precedente */
+	/* sposta la cornice verso sinistra riducendo il margin-left */
+	margin-left: 7em;
+	/* aumenta la dimensione del testo corrente di tutte le sezioni di 5pt */
+	font-size: calc(1em + 5pt);
+}
+
+/* -- breakpoint: schermi piccoli, larghezza massima 500 pixel -- */
+
+@media only screen and (max-width: 600px) {
+	header,
+	section {
+		grid-template-columns: 1fr;
+	}
+	.contenitore {
+		width:100%;
+	}
+	.contenuto-sezione {
+		width: 100%;
+	}
+	.titolo-sezione {
+		width: 100%;
+	}
+	img {
+		width: 100%;
+	}
+
+	/* aumenta la dimensione del testo all'interno di <strong> di 3pt */
+	strong {
+	    font-size: calc(1em + 3pt);
+	}
+}
